@@ -14,6 +14,12 @@ if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL)
 
+/**
+ * Provides Clerk authentication, a Convex client wired to Clerk, and theming, and renders auth-aware views.
+ *
+ * @param children - UI rendered inside the provider when the user is authenticated
+ * @returns A React element that wraps `children` with ClerkProvider, ConvexProviderWithClerk, and ThemeProvider and displays authenticated, unauthenticated, or loading views based on auth state
+ */
 export default function ConvexClientProvider({ children }: { children: ReactNode }) {
   return (
     <ClerkProvider>
