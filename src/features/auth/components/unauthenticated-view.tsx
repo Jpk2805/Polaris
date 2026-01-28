@@ -22,7 +22,7 @@ export const UnauthenticatedView = () =>{
                     <ItemActions>
                         <SignInButton>
                             <Button value={"outline"} size="sm">
-
+                                Sign In
                             </Button>
                         </SignInButton>
                     </ItemActions>

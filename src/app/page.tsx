@@ -1,29 +1,42 @@
-"use client"
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { useQuery } from 'convex/react'
-import React from 'react'
-import { api } from '../../convex/_generated/api'
+import { useConvexAuth, useMutation, useQuery } from "convex/react";
+import { SignedIn } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { api } from "../../convex/_generated/api";
+
+const Page = () => {
+  const { isAuthenticated, isLoading } = useConvexAuth();
+
+  const projects = useQuery(
+    api.projects.get,
+    isAuthenticated ? {} : "skip"
+  );
+
+  const createProject = useMutation(api.projects.create);
+
+  const debug = useMutation(api.projects.debugAuth);
 
 
-const page = () => {
+  const handleCreate = async () => {
+  await debug();
+    if (!isAuthenticated) return;
+    await createProject({ name: "New Project" });
+  };
 
-  const projects = useQuery(api.projects.get);
+  if (isLoading) return <div>Loading auth...</div>;
 
   return (
-    <div className='font-bold text-red-600'>
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {projects?.map((project)=>(
-        <div>
-          {project.name}
-        </div>
-      ))}
-    </main>
-      <Button >
-        click me
+    <SignedIn>
+      <Button onClick={handleCreate}>
+        ADD new
       </Button>
-    </div>
-  )
-}
 
-export default page
+      {projects?.map((project) => (
+        <div key={project._id}>{project.name}</div>
+      ))}
+    </SignedIn>
+  );
+};
+
+export default Page;
