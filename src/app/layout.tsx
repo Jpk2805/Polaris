@@ -20,10 +20,10 @@ export const metadata: Metadata = {
 };
 
 /**
- * The root HTML layout for the application that wraps page content with global fonts and the Convex client provider.
+ * Defines the application's root HTML structure and provides global font variables and the Convex client context.
  *
- * @param children - The page content to render inside the document body.
- * @returns The top-level HTML element containing a body with global font classes and the ConvexClientProvider.
+ * @param children - Page content rendered inside the document <body>.
+ * @returns The top-level `<html>` element whose `<body>` applies global font classes and wraps `children` with `ConvexClientProvider`.
  */
 export default function RootLayout({
   children,

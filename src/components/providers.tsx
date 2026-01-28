@@ -23,6 +23,13 @@ const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL)
  */
 export default function ConvexClientProvider({ children }: { children: ReactNode }) {
 
+  /**
+   * Logs the current Convex authentication and loading state to the console for debugging.
+   *
+   * This component reads the authentication status and loading flag and writes them to the console.
+   *
+   * @returns `null` indicating the component renders no UI
+   */
   function DebugAuth() {
     const { isAuthenticated, isLoading } = useConvexAuth();
     console.log({ isAuthenticated, isLoading });
